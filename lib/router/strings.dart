@@ -4,7 +4,6 @@ class RouteString {
   static const home = 'home';
   static const register = 'register';
   static const profile = 'profile';
-  static const menu = 'menu';
   static const diagnosa = 'diagnosa';
   static const admin = 'admin';
   static const adminKerusakan = 'adminKerusakan';

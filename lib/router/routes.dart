@@ -1,4 +1,3 @@
-import 'package:demo/featured/admin/model/model_aturan.dart';
 import 'package:demo/router/router.dart';
 import 'package:demo/router/strings.dart';
 
@@ -8,17 +7,12 @@ class Routes {
   static goHome() => router.pushReplacementNamed(RouteString.home);
   static goRegister() => router.pushReplacementNamed(RouteString.register);
   static goProfile() => router.pushNamed(RouteString.profile);
-  static goMenu() => router.pushNamed(RouteString.menu);
   static goDiagnosa() => router.pushNamed(RouteString.diagnosa);
   static goAdmin() => router.pushReplacementNamed(RouteString.admin);
   static goAdminKerusakan() => router.pushNamed(RouteString.adminKerusakan);
   static goAdminAturan() => router.pushNamed(RouteString.adminAturan);
-  static goDetailAdminAturan(ModelAturan modelAturan) =>
-      router.pushNamed(RouteString.detailAdminAturan, extra: modelAturan);
 
   static goAdminUser() => router.pushNamed(RouteString.adminUser);
-  static goAdminAddAturan(ModelAturan modelAturan) =>
-      router.pushNamed(RouteString.addAdminAturan, extra: modelAturan);
 
   static goAdminGejala() => router.pushNamed(RouteString.adminGejala);
   static goRiwayatDiagnosa() => router.pushNamed(RouteString.riwayatDiagnosa);

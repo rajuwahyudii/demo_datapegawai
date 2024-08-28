@@ -4,7 +4,6 @@ import 'package:demo/constants/style/text_style.dart';
 import 'package:demo/featured/profile/widget/data_profile.dart';
 import 'package:demo/shared/screen_size.dart';
 import 'package:demo/shared/widget/arrow_back.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AdminProfileView extends StatelessWidget {
@@ -53,17 +52,16 @@ class AdminProfileView extends StatelessWidget {
                     label: 'Email',
                   ),
                   DataProfileWidget(
-                    data: data.first['nik'],
-                    label: 'No Identitas',
+                    data: data.first['tempat_lahir'] == ''
+                        ? 'No Data'
+                        : data.first['tempat_lahir'],
+                    label: 'Tempat Lahir',
                   ),
                   DataProfileWidget(
-                    data: data.first['motor'],
-                    label: 'Merek Motor',
-                  ),
-                  DataProfileWidget(
-                    data: data.first['alamat'],
-                    maxLines: 3,
-                    label: 'Alamat',
+                    data: data.first['jabatan'] == ''
+                        ? 'No Data'
+                        : data.first['jabatan'],
+                    label: 'Jabatan',
                   ),
                 ],
               );

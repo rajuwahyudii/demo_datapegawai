@@ -1,5 +1,3 @@
-import 'package:demo/featured/admin/state/admin_provider.dart';
-import 'package:demo/featured/diagnosa/state/diagnosa_provider.dart';
 import 'package:demo/packages/get_it.dart';
 import 'package:demo/router/router.dart';
 import 'package:demo/services/auth_services.dart';
@@ -22,9 +20,6 @@ void main() async {
     providers: [
       ChangeNotifierProvider<ProviderServices>(
           create: (_) => ProviderServices()),
-      ChangeNotifierProvider<DiagnosaProvider>(
-          create: (_) => DiagnosaProvider()),
-      ChangeNotifierProvider<AdminProvider>(create: (_) => AdminProvider()),
     ],
     child: const MyApp(),
   ));

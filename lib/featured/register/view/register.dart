@@ -18,14 +18,10 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _namaController = TextEditingController(text: '');
-  final TextEditingController _alamatController =
-      TextEditingController(text: '');
-  final TextEditingController _nikController = TextEditingController(text: '');
+
   final TextEditingController _emailController =
       TextEditingController(text: '');
   final TextEditingController _passwordController =
-      TextEditingController(text: '');
-  final TextEditingController _motorController =
       TextEditingController(text: '');
 
   @override
@@ -48,10 +44,6 @@ class _RegisterViewState extends State<RegisterView> {
                     style: MyTextStyle.headerWhiteBold22,
                   ),
                   const SizedBox(height: 20),
-                  Image.asset(
-                    AssetImages.imageLogin,
-                    width: getWidth(context) * 0.5,
-                  ),
                   const SizedBox(height: 20),
                   MyTextFormField(
                     controller: _emailController,
@@ -64,27 +56,6 @@ class _RegisterViewState extends State<RegisterView> {
                     controller: _namaController,
                     keyboardType: TextInputType.name,
                     hint: 'Nama',
-                    maxLines: 1,
-                  ),
-                  const SizedBox(height: 20),
-                  MyTextFormField(
-                    controller: _alamatController,
-                    keyboardType: TextInputType.name,
-                    hint: 'Alamat',
-                    maxLines: 5,
-                  ),
-                  const SizedBox(height: 20),
-                  MyTextFormField(
-                    controller: _nikController,
-                    keyboardType: TextInputType.name,
-                    hint: 'NIK/SIM/Passport',
-                    maxLines: 1,
-                  ),
-                  const SizedBox(height: 20),
-                  MyTextFormField(
-                    controller: _motorController,
-                    keyboardType: TextInputType.name,
-                    hint: 'Merk Motor',
                     maxLines: 1,
                   ),
                   const SizedBox(height: 20),
@@ -105,9 +76,6 @@ class _RegisterViewState extends State<RegisterView> {
                         _emailController.text,
                         _passwordController.text,
                         _namaController.text,
-                        _nikController.text,
-                        _alamatController.text,
-                        _motorController.text,
                       );
                     },
                   ),

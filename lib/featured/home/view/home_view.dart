@@ -20,6 +20,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyColor.mainColor,
       appBar: AppBar(
+        leading: const SizedBox(),
         backgroundColor: MyColor.greenColor,
         elevation: 0,
         title: const Text(
@@ -54,59 +55,54 @@ class HomeView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 child: const Text(
-                  'Selamat Datang di Sistem Pakar Menentukan Kerusakan Motor Pada Injection Motor Honda',
+                  'Selamat Datang di Sistem Pendataan Pegawai',
                   style: MyTextStyle.subHeaderWhiteSemibold18,
                 ),
               ),
               SizedBox(height: getHeight(context) * 0.1),
-              Image.asset(
-                AssetImages.imageMotor2,
-                width: getWidth(context) * 0.8,
-              ),
             ],
           )),
       floatingActionButton: Container(
         decoration: MyDecoration.lrboxRad14hite,
         width: getWidth(context),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('user')
-                    .where("id",
-                        isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const SizedBox();
-                  }
-                  final data = snapshot.data!.docs;
-                  return data.first['role'] == 'admin'
-                      ? HomeFloatingButton(
+        child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('user')
+                .where("id", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const SizedBox();
+              }
+              final data = snapshot.data!.docs;
+              return data.first['role'] == 'admin'
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        HomeFloatingButton(
                           function: () {
                             Routes.goAdmin();
                           },
                           icon: Icons.person,
                           title: 'Admin',
-                        )
-                      : HomeFloatingButton(
+                        ),
+                        HomeFloatingButton(
                           function: () {
-                            Routes.goMenu();
+                            Routes.goProfile();
                           },
-                          icon: Icons.menu,
-                          title: 'Menu',
-                        );
-                }),
-            HomeFloatingButton(
-              function: () {
-                Routes.goProfile();
-              },
-              icon: Icons.person,
-              title: 'Profile',
-            )
-          ],
-        ),
+                          icon: Icons.person,
+                          title: 'Profil',
+                        )
+                      ],
+                    )
+                  : HomeFloatingButton(
+                      function: () {
+                        Routes.goProfile();
+                      },
+                      icon: Icons.person,
+                      title: 'Profil',
+                    );
+            }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

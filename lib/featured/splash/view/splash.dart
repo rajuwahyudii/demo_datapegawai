@@ -68,17 +68,13 @@ class _SplashPageViewState extends State<SplashPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: MyColor.greenColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(AssetImages.imageMotor),
-          const Text(
-            'Demo',
-            style: MyTextStyle.headerWhiteBold22,
-          ),
-        ],
+      body: Center(
+        child: Text(
+          'Data Pegawai App',
+          style: MyTextStyle.headerWhiteBold22,
+        ),
       ),
     );
   }

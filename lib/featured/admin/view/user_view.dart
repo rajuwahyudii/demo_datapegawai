@@ -23,12 +23,14 @@ class UserView extends StatelessWidget {
       TextEditingController(text: '');
   final TextEditingController _namaController = TextEditingController(text: '');
 
-  onEditUser(context, String id, String nama, String alamat, String email,
-      String motor) {
+  onEditUser(
+    context,
+    String id,
+    String nama,
+    bool active,
+  ) {
     _namaController.text = nama;
-    _emailController.text = email;
-    _alamatController.text = alamat;
-    _motorController.text = motor;
+
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -57,35 +59,30 @@ class UserView extends StatelessWidget {
                 // Divider(width: 50, thickness: 2),
                 const SizedBox(height: 16),
                 const Text(
-                  "Ubah Kerusakan",
+                  "Aktivasi Pegawai",
                   style: MyTextStyle.headerGreenBold14,
                 ),
                 const SizedBox(height: 16),
-                MyTextFormField(
-                  maxLength: 500,
-                  maxLines: 1,
-                  hint: "Email",
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Status User : ${active ? 'Aktif' : 'Tidak Aktif'}',
+                      ),
+                      Switch(
+                          value: active,
+                          onChanged: (value) {
+                            active = true;
+                            print(active);
+                            print(value);
+                          })
+                    ],
+                  ),
                 ),
-                MyTextFormField(
-                  maxLength: 500,
-                  maxLines: 1,
-                  hint: "Nama",
-                  controller: _namaController,
-                ),
-                MyTextFormField(
-                  maxLength: 500,
-                  maxLines: 1,
-                  hint: "Motor",
-                  controller: _motorController,
-                ),
-                MyTextFormField(
-                  maxLength: 500,
-                  maxLines: 5,
-                  hint: "Alamat",
-                  controller: _alamatController,
-                ),
+
                 ButtonWidget(
                   color: MyColor.greenColor,
                   textColor: MyColor.mainColor,
@@ -152,10 +149,6 @@ class UserView extends StatelessWidget {
                           data[index]['nama'],
                           style: MyTextStyle.subHeaderSemibold14,
                         ),
-                        subtitle: Text(
-                          data[index]['nik'],
-                          style: MyTextStyle.bodyBlack14,
-                        ),
                         trailing: Wrap(
                           children: [
                             IconButton(
@@ -169,18 +162,42 @@ class UserView extends StatelessWidget {
                             ),
                             IconButton(
                               onPressed: () {
-                                onEditUser(
-                                  context,
-                                  data[index]['id'],
-                                  data[index]['nama'],
-                                  data[index]['alamat'],
-                                  data[index]['email'],
-                                  data[index]['motor'],
-                                );
+                                data[index]['active']
+                                    ? doubleAlert(context,
+                                        title:
+                                            'Apakah Anda Yakin Me-nonaktifkan User ini ?',
+                                        titleButtonLeft: 'Batal',
+                                        titleButtonRight: 'Yakin',
+                                        onPressedLeft: () {
+                                        Navigator.of(context).pop();
+                                      }, onPressedRight: () {
+                                        getIt<AdminViewModel>().doAktivasiUser(
+                                            context, data[index]['id'], false);
+                                        Navigator.of(context).pop();
+                                      })
+                                    : doubleAlert(context,
+                                        title:
+                                            'Apakah Anda Yakin Aktifkan User ini ?',
+                                        titleButtonLeft: 'Batal',
+                                        titleButtonRight: 'Yakin',
+                                        onPressedLeft: () {
+                                        Navigator.of(context).pop();
+                                      }, onPressedRight: () {
+                                        getIt<AdminViewModel>().doAktivasiUser(
+                                          context,
+                                          data[index]['id'],
+                                          true,
+                                        );
+                                        Navigator.of(context).pop();
+                                      });
                               },
-                              icon: const Icon(
-                                Icons.edit,
-                                color: MyColor.greenColor,
+                              icon: Icon(
+                                data[index]['active']
+                                    ? Icons.radio_button_checked_outlined
+                                    : Icons.radio_button_off_outlined,
+                                color: data[index]['active']
+                                    ? MyColor.greenColor
+                                    : MyColor.grayColor,
                               ),
                             ),
                             IconButton(
@@ -205,11 +222,6 @@ class UserView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      DeviderWidget(
-                        width: getWidth(context) * 0.8,
-                        thickness: 2,
-                        vPadding: 16,
-                      )
                     ],
                   );
                 },
